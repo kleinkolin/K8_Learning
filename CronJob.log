@@ -1,0 +1,133 @@
+login as: ec2-user
+Authenticating with public key "imported-openssh-key"
+Last login: Tue Nov  8 07:12:45 2022 from 49.207.209.199
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+13 package(s) needed for security, out of 19 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-2-45 ~]$
+[ec2-user@ip-172-31-2-45 ~]$
+[ec2-user@ip-172-31-2-45 ~]$ sudo su
+[root@ip-172-31-2-45 ec2-user]# ls -ltr
+total 0
+[root@ip-172-31-2-45 ec2-user]# pwd
+/home/ec2-user
+[root@ip-172-31-2-45 ec2-user]# cd ..
+[root@ip-172-31-2-45 home]# ls
+ec2-user  kubernetes-training
+[root@ip-172-31-2-45 home]# cd kubernetes-training/
+[root@ip-172-31-2-45 kubernetes-training]# ls -ltr
+total 132
+drwxr-xr-x 2 root root   189 Nov  7 10:19 03-Pods
+-rw-r--r-- 1 root root  1162 Nov  7 10:19 01gettingstartedWithKube.md
+drwxr-xr-x 3 root root    19 Nov  7 10:19 01-Getting-started
+-rw-r--r-- 1 root root  2269 Nov  7 10:19 00installation.md
+-rw-r--r-- 1 root root  2357 Nov  7 10:19 05-services.md
+drwxr-xr-x 3 root root  4096 Nov  7 10:19 05-services
+-rw-r--r-- 1 root root  1601 Nov  7 10:19 04-controllers.md
+-rw-r--r-- 1 root root  2446 Nov  7 10:19 03-pods.md
+-rw-r--r-- 1 root root  1028 Nov  7 10:19 07-configmap.md
+-rw-r--r-- 1 root root   210 Nov  7 10:19 06-volumes.md
+drwxr-xr-x 4 root root  4096 Nov  7 10:19 06-storage
+drwxr-xr-x 6 root root   274 Nov  7 10:19 09-deployments
+drwxr-xr-x 3 root root   187 Nov  7 10:19 08-metadata
+drwxr-xr-x 6 root root  4096 Nov  7 10:19 07-configmaps-and-secrets
+drwxr-xr-x 2 root root  4096 Nov  7 10:19 12-cluster-admintration
+drwxr-xr-x 2 root root   179 Nov  7 10:19 11-RBAC
+drwxr-xr-x 4 root root   288 Nov  7 10:19 10 Stateful Set
+drwxr-xr-x 4 root root    71 Nov  7 10:19 13-networking
+-rw-r--r-- 1 root root  1956 Nov  7 10:19 Istio-setup.md
+-rw-r--r-- 1 root root  1263 Nov  7 10:19 Deployments.md
+-rw-r--r-- 1 root root  1172 Nov  7 10:19 16-dashboard-setup.md
+drwxr-xr-x 2 root root    74 Nov  7 10:19 16-dashboard
+drwxr-xr-x 2 root root    59 Nov  7 10:19 15-calico
+drwxr-xr-x 3 root root  4096 Nov  7 10:19 14-security
+drwxr-xr-x 2 root root  4096 Nov  7 10:19 Kubernetes-slides
+-rw-r--r-- 1 root root  1078 Nov  7 10:19 Working with MiniKube.md
+-rw-r--r-- 1 root root    43 Nov  7 10:19 README.md
+-rw-r--r-- 1 root root   796 Nov  7 10:19 prometheus-setup.md
+-rw-r--r-- 1 root root  4476 Nov  7 10:19 kubernetes-troubleshooting.md
+-rw-r--r-- 1 root root   605 Nov  7 10:19 installation-multi-node-master.md
+-rw-r--r-- 1 root root  1273 Nov  7 10:19 ingress.md
+-rw-r--r-- 1 root root 29077 Nov  7 10:19 history.txt
+drwxr-xr-x 2 root root    82 Nov  7 10:19 helm
+-rw-r--r-- 1 root root    71 Nov  7 10:19 heapster.md
+drwxr-xr-x 5 root root  4096 Nov  8 07:17 04-controllers
+[root@ip-172-31-2-45 kubernetes-training]# cd 04-controllers/
+[root@ip-172-31-2-45 04-controllers]# ls -ltr
+total 44
+-rw-r--r-- 1 root root 280 Nov  7 10:19 time-limited-batch-job.yaml
+-rw-r--r-- 1 root root 313 Nov  7 10:19 ssd-monitor-daemonset.yaml
+drwxr-xr-x 2 root root  24 Nov  7 10:19 ssd-monitor
+-rw-r--r-- 1 root root 290 Nov  7 10:19 multi-completion-parallel-batch-job.yaml
+-rw-r--r-- 1 root root 273 Nov  7 10:19 multi-completion-batch-job.yaml
+drwxr-xr-x 2 root root  38 Nov  7 10:19 kubia-unhealthy
+-rw-r--r-- 1 root root 325 Nov  7 10:19 kubia-replicaset-matchexpressions.yaml
+-rw-r--r-- 1 root root 294 Nov  7 10:19 kubia-rc.yaml
+-rw-r--r-- 1 root root 197 Nov  7 10:19 kubia-liveness-probe.yaml
+-rw-r--r-- 1 root root 227 Nov  7 10:19 kubia-liveness-probe-initial-delay.yaml
+-rw-r--r-- 1 root root 371 Nov  7 10:19 cronjob.yaml
+-rw-r--r-- 1 root root 239 Nov  7 10:19 batch-job.yaml
+drwxr-xr-x 2 root root  24 Nov  7 10:19 batch-job
+-rw-r--r-- 1 root root 261 Nov  8 07:17 kubia-replicaset.yaml
+[root@ip-172-31-2-45 04-controllers]# cat cronjob.yaml
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: batch-job-every-fifteen-minutes
+spec:
+  schedule: "0,15,30,45 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: periodic-batch-job
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: main
+            image: luksa/batch-job
+[root@ip-172-31-2-45 04-controllers]# kubectl apply -f cronjob.yaml
+cronjob.batch/batch-job-every-fifteen-minutes created
+[root@ip-172-31-2-45 04-controllers]# kubectl get cronjob
+NAME                              SCHEDULE             SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+batch-job-every-fifteen-minutes   0,15,30,45 * * * *   False     0        <none>          16s
+[root@ip-172-31-2-45 04-controllers]# kubectl get jobs --watch
+^Z
+[1]+  Stopped                 kubectl get jobs --watch
+[root@ip-172-31-2-45 04-controllers]# kubectl get cronjob batch-job-every-fifteen-minutes
+NAME                              SCHEDULE             SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+batch-job-every-fifteen-minutes   0,15,30,45 * * * *   False     0        <none>          58s
+[root@ip-172-31-2-45 04-controllers]# kubectl get cronjob batch-job-every-fifteen-minutes
+NAME                              SCHEDULE             SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+batch-job-every-fifteen-minutes   0,15,30,45 * * * *   False     0        <none>          60s
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]# kubectl delete cronjob batch-job-every-fifteen-minutes
+cronjob.batch "batch-job-every-fifteen-minutes" deleted
+[root@ip-172-31-2-45 04-controllers]# kubectl get cronjob
+No resources found in default namespace.
+[root@ip-172-31-2-45 04-controllers]# kubectl get cronjob batch-job-every-fifteen-minutes
+Error from server (NotFound): cronjobs.batch "batch-job-every-fifteen-minutes" not found
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]#
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+What is the change from normal Jobs (jobs v/s cronJobs)?
+
+Ans:- A Job creates one or more Pods, As pods successfully complete, the Job tracks the successful completions. 
+When a specified number of successful completions is reached, the task (ie, Job) is complete. 
+Both Jobs & CronJobs does the same thing except CronJob, It runs a job periodically on a given schedule.
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
