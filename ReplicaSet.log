@@ -1,0 +1,255 @@
+login as: ec2-user
+Authenticating with public key "imported-openssh-key"
+Last login: Mon Nov  7 10:04:19 2022 from 49.207.209.199
+
+       __|  __|_  )
+       _|  (     /   Amazon Linux 2 AMI
+      ___|\___|___|
+
+https://aws.amazon.com/amazon-linux-2/
+13 package(s) needed for security, out of 19 available
+Run "sudo yum update" to apply all updates.
+[ec2-user@ip-172-31-2-45 ~]$
+[ec2-user@ip-172-31-2-45 ~]$
+[ec2-user@ip-172-31-2-45 ~]$ sudo su
+[root@ip-172-31-2-45 ec2-user]# pwd
+/home/ec2-user
+[root@ip-172-31-2-45 ec2-user]# cd
+[root@ip-172-31-2-45 ~]# pwd
+/root
+[root@ip-172-31-2-45 ~]# cd /home
+[root@ip-172-31-2-45 home]# ls
+ec2-user  kubernetes-training
+[root@ip-172-31-2-45 home]# cd kubernetes-training/
+[root@ip-172-31-2-45 kubernetes-training]# ls
+00installation.md            05-services                09-deployments           16-dashboard           installation-multi-node-master.md
+01-Getting-started           05-services.md             10 Stateful Set          16-dashboard-setup.md  Istio-setup.md
+01gettingstartedWithKube.md  06-storage                 11-RBAC                  Deployments.md         Kubernetes-slides
+03-Pods                      06-volumes.md              12-cluster-admintration  heapster.md            kubernetes-troubleshooting.md
+03-pods.md                   07-configmap.md            13-networking            helm                   prometheus-setup.md
+04-controllers               07-configmaps-and-secrets  14-security              history.txt            README.md
+04-controllers.md            08-metadata                15-calico                ingress.md             Working with MiniKube.md
+[root@ip-172-31-2-45 kubernetes-training]# cd 04-controllers/
+[root@ip-172-31-2-45 04-controllers]# ls
+batch-job                                kubia-liveness-probe.yaml               kubia-unhealthy                           ssd-monitor-daemonset.yaml
+batch-job.yaml                           kubia-rc.yaml                           multi-completion-batch-job.yaml           time-limited-batch-job.yaml
+cronjob.yaml                             kubia-replicaset-matchexpressions.yaml  multi-completion-parallel-batch-job.yaml
+kubia-liveness-probe-initial-delay.yaml  kubia-replicaset.yaml                   ssd-monitor
+[root@ip-172-31-2-45 04-controllers]# ls -ltr
+total 44
+-rw-r--r-- 1 root root 280 Nov  7 10:19 time-limited-batch-job.yaml
+-rw-r--r-- 1 root root 313 Nov  7 10:19 ssd-monitor-daemonset.yaml
+drwxr-xr-x 2 root root  24 Nov  7 10:19 ssd-monitor
+-rw-r--r-- 1 root root 290 Nov  7 10:19 multi-completion-parallel-batch-job.yaml
+-rw-r--r-- 1 root root 273 Nov  7 10:19 multi-completion-batch-job.yaml
+drwxr-xr-x 2 root root  38 Nov  7 10:19 kubia-unhealthy
+-rw-r--r-- 1 root root 266 Nov  7 10:19 kubia-replicaset.yaml
+-rw-r--r-- 1 root root 325 Nov  7 10:19 kubia-replicaset-matchexpressions.yaml
+-rw-r--r-- 1 root root 294 Nov  7 10:19 kubia-rc.yaml
+-rw-r--r-- 1 root root 197 Nov  7 10:19 kubia-liveness-probe.yaml
+-rw-r--r-- 1 root root 227 Nov  7 10:19 kubia-liveness-probe-initial-delay.yaml
+-rw-r--r-- 1 root root 371 Nov  7 10:19 cronjob.yaml
+-rw-r--r-- 1 root root 239 Nov  7 10:19 batch-job.yaml
+drwxr-xr-x 2 root root  24 Nov  7 10:19 batch-job
+[root@ip-172-31-2-45 04-controllers]# kubectl get pod -A
+NAMESPACE     NAME                                                                     READY   STATUS    RESTARTS   AGE
+default       kolins-nginx                                                             1/1     Running   0          21h
+default       kubia-manual                                                             1/1     Running   0          20h
+default       nginx-abinav                                                             1/1     Running   0          21h
+kolins        kubia2-djxnb                                                             1/1     Running   0          18h
+kolins        kubia2-p76jp                                                             1/1     Running   0          18h
+kolins        kubia2-qhg6p                                                             1/1     Running   0          18h
+kube-system   calico-etcd-l95cf                                                        1/1     Running   0          3d19h
+kube-system   calico-kube-controllers-7997dc8d7b-dbtd7                                 1/1     Running   1          3d19h
+kube-system   calico-node-5h5nm                                                        2/2     Running   0          3d19h
+kube-system   calico-node-ksh65                                                        2/2     Running   2          3d19h
+kube-system   coredns-66bff467f8-2cp5s                                                 1/1     Running   0          3d19h
+kube-system   coredns-66bff467f8-vgj4v                                                 1/1     Running   0          3d19h
+kube-system   etcd-ip-172-31-2-45.ap-southeast-1.compute.internal                      1/1     Running   0          3d19h
+kube-system   kube-apiserver-ip-172-31-2-45.ap-southeast-1.compute.internal            1/1     Running   0          3d19h
+kube-system   kube-controller-manager-ip-172-31-2-45.ap-southeast-1.compute.internal   1/1     Running   0          3d19h
+kube-system   kube-proxy-md6w9                                                         1/1     Running   0          3d19h
+kube-system   kube-proxy-nklf5                                                         1/1     Running   0          3d19h
+kube-system   kube-scheduler-ip-172-31-2-45.ap-southeast-1.compute.internal            1/1     Running   0          3d19h
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]# kubectl apply -f  kubia-replicaset.yaml
+error: unable to recognize "kubia-replicaset.yaml": no matches for kind "ReplicaSet" in version "apps/v1beta2"
+[root@ip-172-31-2-45 04-controllers]# vi kubia-replicaset.yaml
+[root@ip-172-31-2-45 04-controllers]# cat kubia-replicaset
+cat: kubia-replicaset: No such file or directory
+[root@ip-172-31-2-45 04-controllers]# cat kubia-replicaset.yaml
+apiVersion: apps/v1beta2
+kind: ReplicaSet
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kubia
+  template:
+    metadata:
+      labels:
+        app: kubia
+    spec:
+      containers:
+      - name: kubia
+        image: luksa/kubia
+[root@ip-172-31-2-45 04-controllers]# vi kubia-replicaset.yaml
+[root@ip-172-31-2-45 04-controllers]# kubectl apply -f  kubia-replicaset.yaml
+replicaset.apps/kubia created
+[root@ip-172-31-2-45 04-controllers]# kubectl get rs
+NAME    DESIRED   CURRENT   READY   AGE
+kubia   3         3         0       4s
+[root@ip-172-31-2-45 04-controllers]# kubectl get rs
+NAME    DESIRED   CURRENT   READY   AGE
+kubia   3         3         1       6s
+[root@ip-172-31-2-45 04-controllers]# kubectl get rs
+NAME    DESIRED   CURRENT   READY   AGE
+kubia   3         3         1       7s
+[root@ip-172-31-2-45 04-controllers]# kubectl get rs
+NAME    DESIRED   CURRENT   READY   AGE
+kubia   3         3         2       7s
+[root@ip-172-31-2-45 04-controllers]# kubectl get rs
+NAME    DESIRED   CURRENT   READY   AGE
+kubia   3         3         2       8s
+[root@ip-172-31-2-45 04-controllers]# kubectl get rs
+NAME    DESIRED   CURRENT   READY   AGE
+kubia   3         3         2       9s
+[root@ip-172-31-2-45 04-controllers]# kubectl get rs
+NAME    DESIRED   CURRENT   READY   AGE
+kubia   3         3         3       10s
+[root@ip-172-31-2-45 04-controllers]# kubectl get rs
+NAME    DESIRED   CURRENT   READY   AGE
+kubia   3         3         3       10s
+[root@ip-172-31-2-45 04-controllers]# kubectl get pod -A
+NAMESPACE     NAME                                                                     READY   STATUS    RESTARTS   AGE
+default       kolins-nginx                                                             1/1     Running   0          21h
+default       kubia-6b5zs                                                              1/1     Running   0          16s
+default       kubia-frlmz                                                              1/1     Running   0          16s
+default       kubia-manual                                                             1/1     Running   0          20h
+default       kubia-npvrl                                                              1/1     Running   0          16s
+default       nginx-abinav                                                             1/1     Running   0          21h
+kolins        kubia2-djxnb                                                             1/1     Running   0          18h
+kolins        kubia2-p76jp                                                             1/1     Running   0          18h
+kolins        kubia2-qhg6p                                                             1/1     Running   0          18h
+kube-system   calico-etcd-l95cf                                                        1/1     Running   0          3d19h
+kube-system   calico-kube-controllers-7997dc8d7b-dbtd7                                 1/1     Running   1          3d19h
+kube-system   calico-node-5h5nm                                                        2/2     Running   0          3d19h
+kube-system   calico-node-ksh65                                                        2/2     Running   2          3d19h
+kube-system   coredns-66bff467f8-2cp5s                                                 1/1     Running   0          3d19h
+kube-system   coredns-66bff467f8-vgj4v                                                 1/1     Running   0          3d19h
+kube-system   etcd-ip-172-31-2-45.ap-southeast-1.compute.internal                      1/1     Running   0          3d19h
+kube-system   kube-apiserver-ip-172-31-2-45.ap-southeast-1.compute.internal            1/1     Running   0          3d19h
+kube-system   kube-controller-manager-ip-172-31-2-45.ap-southeast-1.compute.internal   1/1     Running   0          3d19h
+kube-system   kube-proxy-md6w9                                                         1/1     Running   0          3d19h
+kube-system   kube-proxy-nklf5                                                         1/1     Running   0          3d19h
+kube-system   kube-scheduler-ip-172-31-2-45.ap-southeast-1.compute.internal            1/1     Running   0          3d19h
+[root@ip-172-31-2-45 04-controllers]# kubectl get node
+NAME                                               STATUS   ROLES    AGE     VERSION
+ip-172-31-13-244.ap-southeast-1.compute.internal   Ready    <none>   3d19h   v1.18.5
+ip-172-31-2-45.ap-southeast-1.compute.internal     Ready    master   3d19h   v1.18.5
+[root@ip-172-31-2-45 04-controllers]# kubectl describe pod kubia-frlmz
+Name:         kubia-frlmz
+Namespace:    default
+Priority:     0
+Node:         ip-172-31-13-244.ap-southeast-1.compute.internal/172.31.13.244
+Start Time:   Tue, 08 Nov 2022 07:17:07 +0000
+Labels:       app=kubia
+Annotations:  <none>
+Status:       Running
+IP:           192.168.185.76
+IPs:
+  IP:           192.168.185.76
+Controlled By:  ReplicaSet/kubia
+Containers:
+  kubia:
+    Container ID:   docker://61ed2ebfdc2d69fda9fef8c354df33a439d60398abe5f8152e04678bca1434b6
+    Image:          luksa/kubia
+    Image ID:       docker-pullable://luksa/kubia@sha256:3f28e304dc0f63dc30f273a4202096f0fa0d08510bd2ee7e1032ce600616de24
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Tue, 08 Nov 2022 07:17:13 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-fnd8r (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-fnd8r:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-fnd8r
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type    Reason     Age   From                                                       Message
+  ----    ------     ----  ----                                                       -------
+  Normal  Scheduled  74s   default-scheduler                                          Successfully assigned default/kubia-frlmz to ip-172-31-13-244.ap-southeast-1.compute.internal
+  Normal  Pulling    73s   kubelet, ip-172-31-13-244.ap-southeast-1.compute.internal  Pulling image "luksa/kubia"
+  Normal  Pulled     68s   kubelet, ip-172-31-13-244.ap-southeast-1.compute.internal  Successfully pulled image "luksa/kubia"
+  Normal  Created    68s   kubelet, ip-172-31-13-244.ap-southeast-1.compute.internal  Created container kubia
+  Normal  Started    68s   kubelet, ip-172-31-13-244.ap-southeast-1.compute.internal  Started container kubia
+[root@ip-172-31-2-45 04-controllers]# curl 192.168.185.76
+curl: (7) Failed to connect to 192.168.185.76 port 80 after 0 ms: Connection refused
+[root@ip-172-31-2-45 04-controllers]# curl 192.168.185.76:8080
+You've hit kubia-frlmz
+[root@ip-172-31-2-45 04-controllers]# kubectl describe pod kubia-manual
+Name:         kubia-manual
+Namespace:    default
+Priority:     0
+Node:         ip-172-31-13-244.ap-southeast-1.compute.internal/172.31.13.244
+Start Time:   Mon, 07 Nov 2022 10:45:27 +0000
+Labels:       app=ribbon
+Annotations:  Status:  Running
+IP:           192.168.185.70
+IPs:
+  IP:  192.168.185.70
+Containers:
+  kubia:
+    Container ID:   docker://a7b4305bd15a9d4e66ba89321d394475f2ac6966918f2302a8d4cabd171bcd0e
+    Image:          luksa/kubia
+    Image ID:       docker-pullable://luksa/kubia@sha256:3f28e304dc0f63dc30f273a4202096f0fa0d08510bd2ee7e1032ce600616de24
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Mon, 07 Nov 2022 10:45:55 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from default-token-fnd8r (ro)
+Conditions:
+  Type              Status
+  Initialized       True
+  Ready             True
+  ContainersReady   True
+  PodScheduled      True
+Volumes:
+  default-token-fnd8r:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-fnd8r
+    Optional:    false
+QoS Class:       BestEffort
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:          <none>
+[root@ip-172-31-2-45 04-controllers]# curl 192.168.185.70:8080
+You've hit kubia-manual
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]#
+[root@ip-172-31-2-45 04-controllers]# pwd
+/home/kubernetes-training/04-controllers
+[root@ip-172-31-2-45 04-controllers]#
